@@ -3,14 +3,20 @@ import org.scoverage.coveralls.Imports.CoverallsKeys._
 name := "finagle-prometheus"
 
 lazy val commonSettings = Seq(
-  organization := "com.samstarling",
+  organization := "us.oyanglul",
   scalaVersion := "2.12.10",
-  licenses += ("MIT", url("http://opensource.org/licenses/MIT"))
+  licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
+  crossScalaVersions := Seq("2.12.10", "2.13.1")
 )
 
-crossScalaVersions := Seq("2.12.10", "2.13.1")
+inScope(Scope.GlobalScope)(Seq(
+  pgpPublicRing := file(Path.userHome.absolutePath) / ".sbt" / ".sonatype.pubring.asc",
+  pgpSecretRing := file(Path.userHome.absolutePath) / ".sbt" / ".sonatype.secring.asc",
+  releaseEarlyEnableLocalReleases := true,
+  releaseEarlyWith := SonatypePublisher,
+))
 
-organization := "com.samstarling"
+//organization := "com.samstarling"
 
 val finagleVersion = "21.5.0"
 val specs2Version = "4.9.2"

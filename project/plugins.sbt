@@ -7,3 +7,5 @@ addSbtPlugin("org.scoverage" % "sbt-coveralls" % "1.2.5")
 addSbtPlugin("org.foundweekends" % "sbt-bintray" % "0.5.1")
 
 addSbtPlugin("com.github.gseitz" % "sbt-release" % "1.0.9")
+
+addSbtPlugin("ch.epfl.scala" % "sbt-release-early" % "2.1.1")
