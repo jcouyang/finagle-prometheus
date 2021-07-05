@@ -18,7 +18,7 @@ inScope(Scope.GlobalScope)(Seq(
 
 //organization := "com.samstarling"
 
-val finagleVersion = "21.5.0"
+val finagleVersion = "21.6.0"
 val specs2Version = "4.9.2"
 val prometheusVersion = "0.8.1"
 

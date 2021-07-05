@@ -49,8 +49,8 @@ class PrometheusStatsReceiver(registry: CollectorRegistry,
 
   override def repr: AnyRef = this
 
-  override def counter(schema: CounterSchema): Counter = {
-    val (metricName, labels) = extractLabels(schema.metricBuilder.name)
+  override def counter(metricBuilder: MetricBuilder): Counter = {
+    val (metricName, labels) = extractLabels(metricBuilder.name)
     val counter = this.synchronized {
       counters
         .getOrElseUpdate(metricName, newCounter(metricName, labels.keys.toSeq))
@@ -65,8 +65,8 @@ class PrometheusStatsReceiver(registry: CollectorRegistry,
     }
   }
 
-  override def stat(schema: HistogramSchema): Stat = {
-    val (metricName, labels) = extractLabels(schema.metricBuilder.name)
+  override def stat(metricBuilder: MetricBuilder): Stat = {
+    val (metricName, labels) = extractLabels(metricBuilder.name)
     val summary = this.synchronized {
       summaries
         .getOrElseUpdate(metricName, newSummary(metricName, labels.keys.toSeq))
@@ -81,9 +81,9 @@ class PrometheusStatsReceiver(registry: CollectorRegistry,
     }
   }
 
-  override def addGauge(schema: GaugeSchema)(
+  override def addGauge(metricBuilder: MetricBuilder)(
       f: => Float): Gauge = {
-    val (metricName, labels) = extractLabels(schema.metricBuilder.name)
+    val (metricName, labels) = extractLabels(metricBuilder.name)
     val labelValues = labels.values.toSeq
 
     this.synchronized {
